@@ -1,3 +1,3 @@
-module github.com/rmacdiarmid/hubitatdashboard
+module main.go
 
 go 1.18
