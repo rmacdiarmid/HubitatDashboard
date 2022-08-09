@@ -1,9 +1,10 @@
 package main
 
 import (
-	"HubitatDashboard/pkg/handlers"
 	"fmt"
 	"net/http"
+
+	"github.com/rmacdiarmid/HubitatDashboard/pkg/handlers"
 )
 
 //port Number

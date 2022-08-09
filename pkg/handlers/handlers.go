@@ -1,8 +1,9 @@
 package handlers
 
 import (
-	"HubitatDashboard/pkg/render"
 	"net/http"
+
+	"github.com/rmacdiarmid/HubitatDashboard/pkg/render"
 )
 
 //Home is the home page handler
