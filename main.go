@@ -2,25 +2,31 @@ package main
 
 import (
 	"fmt"
+	"html/template"
 	"net/http"
 )
 
+//port Number
 const portNumber = ":8080"
 
 //Home is the home page handler
 func Home(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "This is the home page")
+	renderTemplate(w, "home.page.tmpl")
+
 }
 
 //About is the about page handler
 func About(w http.ResponseWriter, r *http.Request) {
-	sum := addValues(2, 2)
-	fmt.Fprint(w, fmt.Sprintf("This is the about page and 2 + 2 is %d", sum))
+
 }
 
-//addValues adds two integers and returns the sum
-func addValues(x, y int) int {
-	return x + y
+func renderTemplate(w http.ResponseWriter, tmpl string) {
+	parsedTemplate, _ := template.ParseFiles("./templates/" + tmpl)
+	err := parsedTemplate.Execute(w, nil)
+	if err != nil {
+		fmt.Println("error parsing template:", err)
+		return
+	}
 }
 
 func main() {
