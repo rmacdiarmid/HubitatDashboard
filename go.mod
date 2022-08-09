@@ -1,3 +1,4 @@
-module main.go
+module github.com/rmacdiarmid/HubitatDashboard
+
 
 go 1.18
