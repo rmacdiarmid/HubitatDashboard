@@ -8,6 +8,7 @@ import (
 	"path/filepath"
 
 	"github.com/rmacdiarmid/HubitatDashboard/pkg/config"
+	"github.com/rmacdiarmid/HubitatDashboard/pkg/models"
 )
 
 var app *config.AppConfig
@@ -17,14 +18,18 @@ func NewTemplates(a *config.AppConfig) {
 	app = a
 }
 
+func AddDefaultData(td *models.TemplateData) *models.TemplateData {
+
+	return td
+}
+
 // RenderTemplate renders a template
-func RenderTemplate(w http.ResponseWriter, tmpl string) {
+func RenderTemplate(w http.ResponseWriter, tmpl string, td *models.TemplateData) {
 	var tc map[string]*template.Template
 
 	if app.UseCache {
 		// create a template cache
 		//get the template cache from the app config
-
 		tc = app.TemplateCache
 	} else {
 		tc, _ = CreateTemplateCache()
@@ -38,13 +43,11 @@ func RenderTemplate(w http.ResponseWriter, tmpl string) {
 
 	buf := new(bytes.Buffer)
 
-	err := t.Execute(buf, nil)
-	if err != nil {
-		log.Println(err)
-	}
+	td = AddDefaultData(td)
+	_ = t.Execute(buf, td)
 
 	// render the template
-	_, err = buf.WriteTo(w)
+	_, err := buf.WriteTo(w)
 	if err != nil {
 		log.Println(err)
 	}
